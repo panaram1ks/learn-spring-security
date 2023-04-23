@@ -16,7 +16,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
@@ -24,7 +26,6 @@ import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPublicKey;
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION;
@@ -106,5 +107,12 @@ public class JwtSecurityConfiguration {
                 .withPublicKey(rsaKey.toRSAPublicKey())
                 .build();
     }
+
+    //5 use JWKSource for Encoding
+    @Bean
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
+        return new NimbusJwtEncoder(jwkSource);
+    }
+
 
 }
