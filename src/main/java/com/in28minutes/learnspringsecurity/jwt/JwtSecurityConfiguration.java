@@ -31,7 +31,7 @@ import java.util.UUID;
 
 import static org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION;
 
-@Configuration
+//@Configuration
 public class JwtSecurityConfiguration {
 
     @Bean
